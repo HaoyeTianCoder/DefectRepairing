@@ -17,7 +17,7 @@ def checkout(project,bugid,patch_no):
 
 def gen_test_randoop(project,bug_id):
     if not os.path.exists('../test_gen_randoop/'+project+'/randoop/'+str(bug_id)):
-        os.system('run_randoop.pl -p '+project+' -v '+str(bug_id)+'b -n '+str(bug_id)+' -o ../test_gen_randoop -b 420')
+        os.system('run_randoop.pl -p '+project+' -v '+str(bug_id)+'b -n '+str(bug_id)+' -o ../test_gen_randoop -b 240')
 
 def trace(project,bugid,patch_no):
     if not os.path.exists('../randoop_cover'):
@@ -72,10 +72,18 @@ def run(project,bugid,patch_no):
     
     trace(project,bugid,patch_no)
     parse_trace(project,bugid,patch_no)
-    print(classify(patch_no))
+    res=classify(patch_no)
+    print(res)
+    with open('RESULT.csv', 'a') as csvfile:  
+        filewriter = csv.writer(csvfile, delimiter=',',
+                                quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        filewriter.writerow([patch_no,project,bugid,res])
     os.system('rm -rf '+project+bugid+'b')
     os.system('rm -rf '+project+bugid+'b_'+patch_no)
 
-import sys
+    os.system('rm -rf '+project+bugid+'b')
+    os.system('rm -rf '+project+bugid+'b_'+patch_no)
+
+import sys,csv
 if __name__ == '__main__':
     run(sys.argv[1],sys.argv[2],sys.argv[3])
