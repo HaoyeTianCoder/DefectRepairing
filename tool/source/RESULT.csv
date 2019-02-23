@@ -58,3 +58,9 @@ patch1-Lang-55-Arja-plausible,Lang,55,Incorrect
 patch1-Lang-59-Arja-plausible,Lang,59,Correct
 patch1-Lang-59-Arja-plausible,Lang,59,Correct
 patch1-Math-73-Arja,Math,73,Correct
+patch1-Math-73-JGenProg2015,Math,73,Incorrect
+patch1-Lang-60-Arja-plausible,Lang,60,Incorrect
+patch1-Lang-63-Arja-plausible,Lang,63,Correct
+patch2-Lang-16-Arja-plausible,Lang,16,Correct
+patch2-Lang-20-Arja-plausible,Lang,20,
+patch2-Lang-22-Arja-plausible,Lang,22,Incorrect
