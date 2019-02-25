@@ -64,3 +64,13 @@ patch1-Lang-63-Arja-plausible,Lang,63,Correct
 patch2-Lang-16-Arja-plausible,Lang,16,Correct
 patch2-Lang-20-Arja-plausible,Lang,20,
 patch2-Lang-22-Arja-plausible,Lang,22,Incorrect
+patch7-Lang-59-Arja-plausible,Lang,59,Correct
+patch3-Lang-22-Arja-plausible,Lang,22,Incorrect
+patch3-Lang-50-Arja-plausible,Lang,50,Correct
+patch3-Lang-51-Jaid-plausible,Lang,51,Correct
+patch3-Lang-55-Arja-plausible,Lang,55,Incorrect
+patch3-Lang-59-CapGen-plausible,Lang,59,
+patch3-Lang-63-Arja-plausible,Lang,63,Correct
+patch4-Lang-59-CapGen-plausible,Lang,59,
+patch5-Lang-63-Arja-plausible,Lang,63,Correct
+patch6-Lang-50-Arja-plausible,Lang,50,Correct
