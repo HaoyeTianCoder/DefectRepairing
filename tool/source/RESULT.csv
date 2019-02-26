@@ -74,3 +74,13 @@ patch3-Lang-63-Arja-plausible,Lang,63,Correct
 patch4-Lang-59-CapGen-plausible,Lang,59,
 patch5-Lang-63-Arja-plausible,Lang,63,Correct
 patch6-Lang-50-Arja-plausible,Lang,50,Correct
+patch-Lang-2-ssFix-plausible,Lang,2,Correct
+patch-Lang-27-ssFix-plausible,Lang,27,Correct
+patch1-Math-104-Elixir-plausible,Math,104,Correct
+patch1-Math-2-Elixir-plausible,Math,2,Correct
+patch1-Math-2-JGenProg2015-plausible,Math,2,Correct
+patch1-Math-20-Arja-plausible,Math,20,Correct
+patch1-Math-28-DeepRepair,Math,28,Correct
+patch1-Math-32-Elixir-plausible,Math,32,Correct
+patch1-Math-33-SketchFix-plausible,Math,33,Incorrect
+patch2-Math-33-SketchFix-plausible,Math,33,Incorrect
