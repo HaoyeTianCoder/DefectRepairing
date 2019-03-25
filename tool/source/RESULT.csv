@@ -195,3 +195,14 @@ patch2-Lang-51-Jaid,Lang,51,Correct
 patch2-Lang-51-Jaid,Lang,51,Correct
 patch1-Lang-51-Jaid,Lang,51,Correct
 patch1-Lang-20-Arja,Lang,20,
+patch1-Lang-22-DeepRepair,Lang,22,Incorrect
+patch1-Chart-5-Nopol2015,Chart,5,Correct
+patch1-Chart-5-Arja,Chart,5,Incorrect
+patch1-Math-93-ACS,Math,93,Correct
+patch-Math-30-ssFix-plausible,Math,30,Correct
+patch-Math-79-ssFix-plausible,Math,79,Incorrect
+patch1-Math-28-ssFix-plausible,Math,28,
+patch1-Math-8-ssFix-plausible,Math,8,Correct
+patch1-Math-70-SketchFix-plausible,Math,70,Correct
+patch1-Math-82-SketchFix-plausible,Math,82,
+patch2-Math-70-SketchFix-plausible,Math,70,
