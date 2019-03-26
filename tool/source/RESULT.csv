@@ -206,3 +206,27 @@ patch1-Math-8-ssFix-plausible,Math,8,Correct
 patch1-Math-70-SketchFix-plausible,Math,70,Correct
 patch1-Math-82-SketchFix-plausible,Math,82,
 patch2-Math-70-SketchFix-plausible,Math,70,
+patch1-Chart-1-SketchFix-plausible,Chart,1,
+patch3-Math-82-Jaid-plausible,Math,82,
+patch4-Math-82-Jaid-plausible,Math,82,
+patch3-Math-82-Jaid-plausible,Math,82,
+patch3-Math-82-Jaid-plausible,Math,82,Incorrect
+patch4-Math-82-Jaid-plausible,Math,82,Incorrect
+patch2-Math-80-Jaid-plausible,Math,80,Correct
+patch3-Math-80-Jaid-plausible,Math,80,Correct
+patch2-Math-82-Jaid-plausible,Math,82,Correct
+patch1-Math-32-Jaid-plausible,Math,32,Correct
+patch2-Math-85-Jaid-plausible,Math,85,Correct
+patch3-Math-53-Jaid-plausible,Math,53,Incorrect
+patch1-Math-53-Jaid-plausible,Math,53,
+patch1-Math-85-Jaid-plausible,Math,85,
+patch4-Math-85-Jaid-plausible,Math,85,
+patch3-Math-85-Jaid-plausible,Math,85,Correct
+patch1-Math-50-Jaid-plausible,Math,50,
+patch1-Math-80-Jaid-plausible,Math,80,|Java HotSpot(TM) 64-Bit Server VM warning: INFO: os::commit_memory(0x0000000707000000, 174063616, 0) failed; error='Cannot allocate memory' (errno=12)|
+patch1-Math-82-Jaid-plausible,Math,82,|Java HotSpot(TM) 64-Bit Server VM warning: INFO: os::commit_memory(0x0000000707000000, 174063616, 0) failed; error='Cannot allocate memory' (errno=12)|
+patch2-Math-53-Jaid-plausible,Math,53,|Java HotSpot(TM) 64-Bit Server VM warning: INFO: os::commit_memory(0x0000000707000000, 174063616, 0) failed; error='Cannot allocate memory' (errno=12)|
+patch3-Math-50-Jaid-plausible,Math,50,|Java HotSpot(TM) 64-Bit Server VM warning: INFO: os::commit_memory(0x0000000707000000, 174063616, 0) failed; error='Cannot allocate memory' (errno=12)|
+patch1-Math-82-Jaid-plausible,Math,82,Correct
+patch2-Math-53-Jaid-plausible,Math,53,Incorrect
+patch3-Math-50-Jaid-plausible,Math,50,Correct
