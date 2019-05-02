@@ -1,0 +1,13 @@
+diff -w -r -u Closure51b/src/com/google/javascript/jscomp/CodeConsumer.java	2019-04-17 06:56:11.000000000 -0700 Closure51b_Closure-51/src/com/google/javascript/jscomp/CodeConsumer.java	2019-04-17 06:56:15.000000000 -0700
+--- Closure51b/src/com/google/javascript/jscomp/CodeConsumer.java	2019-04-17 06:56:11.000000000 -0700
++++ Closure51b_Closure-51/src/com/google/javascript/jscomp/CodeConsumer.java	2019-04-17 06:56:15.000000000 -0700
+@@ -238,7 +238,7 @@
+       add(" ");
+     }
+ 
+-    if ((long) x == x) {
++    if ((long) x == x && !isNegativeZero(x)) {
+       long value = (long) x;
+       long mantissa = value;
+       int exp = 0;
+

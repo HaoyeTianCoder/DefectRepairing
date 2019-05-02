@@ -1,0 +1,13 @@
+diff -w -r -u Closure125b/src/com/google/javascript/jscomp/TypeCheck.java	2019-04-17 06:58:55.000000000 -0700 Closure125b_Closure-125/src/com/google/javascript/jscomp/TypeCheck.java	2019-04-17 06:58:59.000000000 -0700
+--- Closure125b/src/com/google/javascript/jscomp/TypeCheck.java	2019-04-17 06:58:55.000000000 -0700
++++ Closure125b_Closure-125/src/com/google/javascript/jscomp/TypeCheck.java	2019-04-17 06:58:59.000000000 -0700
+@@ -1658,7 +1658,7 @@
+     JSType type = getJSType(constructor).restrictByNotNullOrUndefined();
+     if (type.isConstructor() || type.isEmptyType() || type.isUnknownType()) {
+       FunctionType fnType = type.toMaybeFunctionType();
+-      if (fnType != null) {
++      if (fnType != null && fnType.hasInstanceType()) {
+         visitParameterList(t, n, fnType);
+         ensureTyped(t, n, fnType.getInstanceType());
+       } else {
+

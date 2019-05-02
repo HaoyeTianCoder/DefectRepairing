@@ -1,0 +1,13 @@
+diff -w -r -u Lang61b/src/java/org/apache/commons/lang/text/StrBuilder.java	2019-04-17 07:05:57.000000000 -0700 Lang61b_Lang-61/src/java/org/apache/commons/lang/text/StrBuilder.java	2019-04-17 07:06:03.000000000 -0700
+--- Lang61b/src/java/org/apache/commons/lang/text/StrBuilder.java	2019-04-17 07:05:57.000000000 -0700
++++ Lang61b_Lang-61/src/java/org/apache/commons/lang/text/StrBuilder.java	2019-04-17 07:06:03.000000000 -0700
+@@ -1773,7 +1773,7 @@
+             return -1;
+         }
+         char[] thisBuf = buffer;
+-        int len = thisBuf.length - strLen;
++        int len = size - strLen + 1;
+         outer:
+         for (int i = startIndex; i < len; i++) {
+             for (int j = 0; j < strLen; j++) {
+

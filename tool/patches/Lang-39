@@ -1,0 +1,14 @@
+diff -w -r -u Lang39b/src/java/org/apache/commons/lang3/StringUtils.java	2019-04-17 07:02:59.000000000 -0700 Lang39b_Lang-39/src/java/org/apache/commons/lang3/StringUtils.java	2019-04-17 07:03:05.000000000 -0700
+--- Lang39b/src/java/org/apache/commons/lang3/StringUtils.java	2019-04-17 07:02:59.000000000 -0700
++++ Lang39b_Lang-39/src/java/org/apache/commons/lang3/StringUtils.java	2019-04-17 07:03:05.000000000 -0700
+@@ -3673,6 +3673,9 @@
+ 
+         // count the replacement text elements that are larger than their corresponding text being replaced
+         for (int i = 0; i < searchList.length; i++) {
++            if (searchList[i] == null || replacementList[i] == null) {
++                continue;
++            }
+             int greater = replacementList[i].length() - searchList[i].length();
+             if (greater > 0) {
+                 increase += 3 * greater; // assume 3 matches
+

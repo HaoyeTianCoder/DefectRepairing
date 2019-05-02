@@ -1,0 +1,12 @@
+diff -w -r -u Lang38b/src/java/org/apache/commons/lang3/time/FastDateFormat.java	2019-04-17 07:02:44.000000000 -0700 Lang38b_Lang-38/src/java/org/apache/commons/lang3/time/FastDateFormat.java	2019-04-17 07:02:50.000000000 -0700
+--- Lang38b/src/java/org/apache/commons/lang3/time/FastDateFormat.java	2019-04-17 07:02:44.000000000 -0700
++++ Lang38b_Lang-38/src/java/org/apache/commons/lang3/time/FastDateFormat.java	2019-04-17 07:02:50.000000000 -0700
+@@ -869,6 +869,7 @@
+      */
+     public StringBuffer format(Calendar calendar, StringBuffer buf) {
+         if (mTimeZoneForced) {
++            calendar.getTime(); /// LANG-538
+             calendar = (Calendar) calendar.clone();
+             calendar.setTimeZone(mTimeZone);
+         }
+

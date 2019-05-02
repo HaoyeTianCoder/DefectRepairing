@@ -1,0 +1,13 @@
+diff -w -r -u Math6b/src/main/java/org/apache/commons/math3/optim/BaseOptimizer.java	2019-04-17 07:06:47.000000000 -0700 Math6b_Math-6/src/main/java/org/apache/commons/math3/optim/BaseOptimizer.java	2019-04-17 07:06:52.000000000 -0700
+--- Math6b/src/main/java/org/apache/commons/math3/optim/BaseOptimizer.java	2019-04-17 07:06:47.000000000 -0700
++++ Math6b_Math-6/src/main/java/org/apache/commons/math3/optim/BaseOptimizer.java	2019-04-17 07:06:52.000000000 -0700
+@@ -48,7 +48,7 @@
+         this.checker = checker;
+ 
+         evaluations = new Incrementor(0, new MaxEvalCallback());
+-        iterations = new Incrementor(0, new MaxIterCallback());
++        iterations = new Incrementor(Integer.MAX_VALUE, new MaxIterCallback());
+     }
+ 
+     /**
+

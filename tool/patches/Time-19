@@ -1,0 +1,13 @@
+diff -w -r -u Time19b/src/main/java/org/joda/time/DateTimeZone.java	2019-04-17 07:17:24.000000000 -0700 Time19b_Time-19/src/main/java/org/joda/time/DateTimeZone.java	2019-04-17 07:17:27.000000000 -0700
+--- Time19b/src/main/java/org/joda/time/DateTimeZone.java	2019-04-17 07:17:24.000000000 -0700
++++ Time19b_Time-19/src/main/java/org/joda/time/DateTimeZone.java	2019-04-17 07:17:27.000000000 -0700
+@@ -897,7 +897,7 @@
+                     return offsetLocal;
+                 }
+             }
+-        } else if (offsetLocal > 0) {
++        } else if (offsetLocal >= 0) {
+             long prev = previousTransition(instantAdjusted);
+             if (prev < instantAdjusted) {
+                 int offsetPrev = getOffset(prev);
+

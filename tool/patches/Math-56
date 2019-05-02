@@ -1,0 +1,4 @@
+diff -w -r -u Math30b/src/main/java/org/apache/commons/math3/stat/inference/MannWhitneyUTest.java	2019-04-17 07:07:52.000000000 -0700 Math30b_Math-30/src/main/java/org/apache/commons/math3/stat/inference/MannWhitneyUTest.java	2019-04-17 07:07:58.000000000 -0700
+--- Math30b/src/main/java/org/apache/commons/math3/stat/inference/MannWhitneyUTest.java	2019-04-17 07:07:52.000000000 -0700
++++ Math30b_Math-30/src/main/java/org/apache/commons/math3/stat/inference/MannWhitneyUTest.java	2019-04-17 07:07:58.000000000 -0700
+

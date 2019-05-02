@@ -1,0 +1,13 @@
+diff -w -r -u Closure113b/src/com/google/javascript/jscomp/ProcessClosurePrimitives.java	2019-04-17 06:58:19.000000000 -0700 Closure113b_Closure-113/src/com/google/javascript/jscomp/ProcessClosurePrimitives.java	2019-04-17 06:58:23.000000000 -0700
+--- Closure113b/src/com/google/javascript/jscomp/ProcessClosurePrimitives.java	2019-04-17 06:58:19.000000000 -0700
++++ Closure113b_Closure-113/src/com/google/javascript/jscomp/ProcessClosurePrimitives.java	2019-04-17 06:58:23.000000000 -0700
+@@ -326,7 +326,7 @@
+       // the checks for broken requires turned off. In these cases, we
+       // allow broken requires to be preserved by the first run to
+       // let them be caught in the subsequent run.
+-      if (provided != null) {
++      if (provided != null || requiresLevel.isOn()) {
+         parent.detachFromParent();
+         compiler.reportCodeChange();
+       }
+

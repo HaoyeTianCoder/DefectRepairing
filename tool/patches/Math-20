@@ -1,0 +1,14 @@
+diff -w -r -u Math20b/src/main/java/org/apache/commons/math3/optimization/direct/CMAESOptimizer.java	2019-04-17 07:07:19.000000000 -0700 Math20b_Math-20/src/main/java/org/apache/commons/math3/optimization/direct/CMAESOptimizer.java	2019-04-17 07:07:24.000000000 -0700
+--- Math20b/src/main/java/org/apache/commons/math3/optimization/direct/CMAESOptimizer.java	2019-04-17 07:07:19.000000000 -0700
++++ Math20b_Math-20/src/main/java/org/apache/commons/math3/optimization/direct/CMAESOptimizer.java	2019-04-17 07:07:24.000000000 -0700
+@@ -918,7 +918,8 @@
+          * @return the original objective variables, possibly repaired.
+          */
+         public double[] repairAndDecode(final double[] x) {
+-            return
++            return boundaries != null && isRepairMode ?
++                decode(repair(x)) :
+                 decode(x);
+         }
+ 
+

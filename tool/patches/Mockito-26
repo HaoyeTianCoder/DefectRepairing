@@ -1,0 +1,13 @@
+diff -w -r -u Mockito26b/src/org/mockito/internal/util/Primitives.java	2019-04-17 07:16:17.000000000 -0700 Mockito26b_Mockito-26/src/org/mockito/internal/util/Primitives.java	2019-04-17 07:16:23.000000000 -0700
+--- Mockito26b/src/org/mockito/internal/util/Primitives.java	2019-04-17 07:16:17.000000000 -0700
++++ Mockito26b_Mockito-26/src/org/mockito/internal/util/Primitives.java	2019-04-17 07:16:23.000000000 -0700
+@@ -63,6 +63,6 @@
+         primitiveValues.put(int.class, 0);
+         primitiveValues.put(long.class, 0L);
+         primitiveValues.put(float.class, 0F);
+-        primitiveValues.put(double.class, 0);
++        primitiveValues.put(double.class, 0D);
+     }
+ }
+\ No newline at end of file
+
