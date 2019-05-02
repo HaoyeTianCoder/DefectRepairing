@@ -208,11 +208,25 @@ public class classifier {
 		
 		
         double dis_pass,dis_fail;
+
 		dis_pass=max(pass_distances);
 		dis_fail=mean(fail_distances);
                 if(dis_pass>=0.25 || dis_pass>dis_fail){
-                        System.out.println("Incorrect");
-                } else System.out.println("Correct");		
-                //System.out.println(fail_distances.size()+pass_distances.size());
+System.out.println("Incorrect");
+System.out.println("dis_pass"+dis_pass);
+System.out.println("dis_fail"+dis_fail);
+System.out.println("pass_distances"+pass_distances);
+System.out.println("fail_distances"+fail_distances);
+    
+                } else {
+System.out.println("Correct");	
+System.out.println("dis_pass"+dis_pass);
+System.out.println("dis_fail"+dis_fail);
+System.out.println("pass_distances"+pass_distances);
+System.out.println("fail_distances"+fail_distances);
+   
+}	
+System.out.println("pass_distances_size"+pass_distances.size());
+System.out.println("fail_distances_size"+fail_distances.size());
 	}
 }
