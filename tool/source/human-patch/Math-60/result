@@ -1,0 +1,7 @@
+Correct
+dis_pass0.21463414634146338
+dis_fail0.5230524642289348
+pass_distances[NaN, 0.10810810810810811, 0.13714285714285712, NaN, NaN, NaN, 0.21463414634146338]
+fail_distances[0.5230524642289348]
+pass_distances_size7
+fail_distances_size1
