@@ -44,10 +44,11 @@ def travFolder(dir):
                                   
        else:
            if 'tmp.patch' not in f:
-                travFolder(dir+f)
+                travFolder(dir+'/'+f)
 
 
 
 if __name__ == '__main__':
+    os.system('mkdir ./patches')
     folderdir='./3sfix/'
     travFolder(folderdir)
