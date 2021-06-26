@@ -10,7 +10,7 @@ def travFolder(dir):
        pattern = 'patch*.patch'
        if os.path.isfile(os.path.join(dir, f)):
            if fnmatch.fnmatch(f, pattern):
-               patchName=os.path.splitext(f)[0].split('_')[0] + '-' + os.path.splitext(f)[0].split('_')[1]
+               patchName=os.path.splitext(f)[0]
                print patchName
                arraynames=os.path.splitext(f)[0].split("-")   
                #arraynames ['patch1', 'Chart', '1', 'CapGen']
@@ -35,9 +35,9 @@ def travFolder(dir):
                        else:
                            patchcode+=line+'\n'
                            print patchcode
-               if not os.path.exists('./patches/'+dir[2:]):
-                   os.makedirs('./patches/'+dir[2:])
-               with open('./patches/'+dir[2:]+'/'+patchName,'a') as wfile:
+               # if not os.path.exists('./patches/'+dir[2:]):
+               #     os.makedirs('./patches/'+dir[2:])
+               with open('./patches/'+patchName,'a') as wfile:
                    wfile.write("diff -w -r -u "+firstline+" "+secondline+'\n')
                    wfile.write("--- "+firstline+'\n')
                    wfile.write("+++ "+secondline+'\n')
