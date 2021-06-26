@@ -10,7 +10,8 @@ def travFolder(dir):
        pattern = 'patch*.patch'
        if os.path.isfile(os.path.join(dir, f)):
            if fnmatch.fnmatch(f, pattern):
-               patchName=os.path.splitext(f)[0]
+               label = dir.split('/')[3]
+               patchName=os.path.splitext(f)[0] + '_' + label
                print patchName
                arraynames=os.path.splitext(f)[0].split("-")   
                #arraynames ['patch1', 'Chart', '1', 'CapGen']
