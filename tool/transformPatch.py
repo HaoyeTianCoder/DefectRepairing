@@ -37,7 +37,7 @@ def travFolder(dir):
                            print patchcode
                if not os.path.exists('./patches/'+dir[2:]):
                    os.makedirs('./patches/'+dir[2:])
-               with open('./patches/'+dir[2:]+f,'a') as wfile:
+               with open('./patches/'+dir[2:]+'/'+f,'a') as wfile:
                    wfile.write("diff -w -r -u "+firstline+" "+secondline+'\n')
                    wfile.write("--- "+firstline+'\n')
                    wfile.write("+++ "+secondline+'\n')
