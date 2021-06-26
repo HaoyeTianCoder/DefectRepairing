@@ -10,13 +10,13 @@ def travFolder(dir):
        pattern = 'patch*.patch'
        if os.path.isfile(os.path.join(dir, f)):
            if fnmatch.fnmatch(f, pattern):
-               patchName=os.path.splitext(f)[0]
+               patchName=os.path.splitext(f)[0].split('_')[0] + '-' + os.path.splitext(f)[0].split('_')[1]
                print patchName
                arraynames=os.path.splitext(f)[0].split("-")   
                #arraynames ['patch1', 'Chart', '1', 'CapGen']
                patchNo=arraynames[0] 
                projectId=arraynames[1] 
-               bugId=arraynames[2]
+               bugId=arraynames[2].split('_')[0]
                print projectId
                print bugId
                patchcode=''
@@ -35,8 +35,9 @@ def travFolder(dir):
                        else:
                            patchcode+=line+'\n'
                            print patchcode
-                    
-               with open('./patches/'+patchName,'a') as wfile:
+               if not os.path.exists('./patches/'+dir[2:]):
+                   os.makedirs('./patches/'+dir[2:])
+               with open('./patches/'+dir[2:]+'/'+patchName,'a') as wfile:
                    wfile.write("diff -w -r -u "+firstline+" "+secondline+'\n')
                    wfile.write("--- "+firstline+'\n')
                    wfile.write("+++ "+secondline+'\n')
@@ -50,5 +51,6 @@ def travFolder(dir):
 
 if __name__ == '__main__':
     os.system('mkdir ./patches')
-    folderdir='./3sfix/'
+    # folderdir='./3sfix/'
+    folderdir='./PatchCollectingTOSEMYeUnique4Patchsim'
     travFolder(folderdir)
