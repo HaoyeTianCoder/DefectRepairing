@@ -3,6 +3,7 @@ import sys, os, subprocess,fnmatch,csv,re
 import multiprocessing
 
 cores = multiprocessing.cpu_count()
+print "cores: ", cores
 pool = multiprocessing.Pool(processes=cores)
 
 def run_cmd(cmd):
