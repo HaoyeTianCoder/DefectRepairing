@@ -103,7 +103,7 @@ def parse_kPAR(path, tool):
                     f.write(new_line)
 
 if __name__ == '__main__':
-    path = '/Users/haoye.tian/Documents/available'
+    path = './available'
     tools = os.listdir(path)
     for tool in tools:
         if tool in abpatch:
