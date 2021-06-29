@@ -1,6 +1,6 @@
 import os, fnmatch
 
-abpatch = ['AVATAR', 'DynaMoth', 'FixMiner', 'kPAR', 'TBar']
+abpatch = ['AVATAR', 'DynaMoth', 'FixMiner', 'kPAR', 'TBar', 'Developer']
 
 def parse_abpatch(path, tool):
     new_path = os.path.join(path, tool)
