@@ -20,18 +20,12 @@ if __name__ == '__main__':
                print("{}'s result exists".format(f))
                continue
            with open(currentpath+'/patches/'+f) as file:
-               arraynames=f.split("-")  
+               arraynames=f.split("-")
                project= arraynames[1]
                bug= arraynames[2].split("_")[0]
 
-               start = time.time()
                os.chdir('source') 
                os.system('python3 run.py '+project+'  '+bug+'  '+f) 
                os.chdir('..')
-               end = time.time()
-               during = str(end - start)
 
-               with open('./source/time.csv', 'a') as timefile:
-                   filewriter = csv.writer(timefile, delimiter=',',
-                                           quotechar='|', quoting=csv.QUOTE_MINIMAL)
-                   filewriter.writerow([f, during])
+
