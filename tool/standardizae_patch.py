@@ -1,6 +1,6 @@
 import os, fnmatch
 
-abpatch = ['AVATAR', 'DynaMoth', 'FixMiner', 'kPAR', 'TBar', 'Developer']
+abpatch = ['AVATAR', 'DynaMothTest', 'FixMiner', 'kPAR', 'TBar', 'Developer']
 
 def parse_abpatch(path, tool):
     new_path = os.path.join(path, tool)
@@ -103,7 +103,7 @@ def parse_kPAR(path, tool):
                     f.write(new_line)
 
 if __name__ == '__main__':
-    path = './available'
+    path = 'available'
     tools = os.listdir(path)
     for tool in tools:
         if tool in abpatch:
