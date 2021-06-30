@@ -1,6 +1,6 @@
 import os, fnmatch
 
-abpatch = ['AVATAR', 'DynaMothTest', 'FixMiner', 'kPAR', 'TBar', 'Developer']
+abpatch = ['AVATAR', 'DynaMoth', 'FixMiner', 'kPAR', 'TBar', 'Developer']
 
 def parse_abpatch(path, tool):
     new_path = os.path.join(path, tool)
@@ -29,6 +29,8 @@ def parse_3sGen(path, tool):
     for root, dirs, files in os.walk(new_path):
         for file in files:
             if fnmatch.fnmatch(file, pattern):
+                project = file.split('-')[1]
+                id = file.split('-')[2].split('_')[0]
                 print file
                 new_line = ''
                 with open(os.path.join(root, file), 'r+') as f:
@@ -39,12 +41,27 @@ def parse_3sGen(path, tool):
                             origin_head = line.split(' ')[1].split('\t')[0].strip()
                             if tool == '3sFix':
                                 new_head_list = origin_head.split('/')[5:]
+                                new_head_minus = '--- /' + '/'.join(new_head_list) + '\n'
+
+                                if project == 'Math' and int(id) >= 85:
+                                    new_head_minus = new_head_minus.replace('/src/default/', '/src/java/')
+                                elif project == 'Lang' and int(id) >= 36:
+                                    new_head_minus = new_head_minus.replace('/src/default/', '/src/java/')
+                                elif project == 'Chart':
+                                    new_head_minus = new_head_minus.replace('/src/default/', '/source/')
+                                elif project == 'Closure':
+                                    new_head_minus = new_head_minus.replace('/src/default/', '/src/')
+                                elif project == 'Lang' or project == 'Math' or project == 'Time':
+                                    new_head_minus = new_head_minus.replace('/src/default/', '/src/main/java/')
+                                elif project == 'Mockito':
+                                    new_head_minus = new_head_minus.replace('/src/default/', '/src/')
                             elif tool == 'GenProgA':
                                 new_head_list = origin_head.split('/')[3:]
-                            new_head_minus = '--- /' + '/'.join(new_head_list) + '\n'
+                                new_head_minus = '--- /' + '/'.join(new_head_list) + '\n'
+
                             new_line += new_head_minus
                         elif line.startswith('+++ '):
-                            new_head_plus = '+++ /' + '/'.join(new_head_list) + '\n'
+                            new_head_plus = new_head_minus.replace('--- ', '+++ ')
                             new_line += new_head_plus
                         else:
                             new_line += line
@@ -103,7 +120,7 @@ def parse_kPAR(path, tool):
                     f.write(new_line)
 
 if __name__ == '__main__':
-    path = 'available'
+    path = '/Users/haoye.tian/Documents/tmp'
     tools = os.listdir(path)
     for tool in tools:
         if tool in abpatch:
