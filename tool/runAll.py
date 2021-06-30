@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import sys, os, subprocess,fnmatch,csv,re
-
+import time
 if __name__ == '__main__':
     exist_result = set()
     if os.path.exists('./source/RESULT.csv'):
@@ -23,6 +23,15 @@ if __name__ == '__main__':
                arraynames=f.split("-")  
                project= arraynames[1]
                bug= arraynames[2].split("_")[0]
+
+               start = time.time()
                os.chdir('source') 
                os.system('python3 run.py '+project+'  '+bug+'  '+f) 
-               os.chdir('..') 
+               os.chdir('..')
+               end = time.time()
+               during = str(end - start)
+
+               with open('./source/time.csv', 'a') as timefile:
+                   filewriter = csv.writer(timefile, delimiter=',',
+                                           quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                   filewriter.writerow([f, during])
