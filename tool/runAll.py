@@ -2,11 +2,12 @@
 import sys, os, subprocess,fnmatch,csv,re
 
 if __name__ == '__main__':
-   exist_result = set()
-   csv_reader = csv.reader(open('./source/RESULT.csv'))
-   for line in csv_reader:
-       patch_name = line[0]
-       exist_result.add(patch_name)
+   if os.path.exists('./source/RESULT.csv'):
+       exist_result = set()
+       csv_reader = csv.reader(open('./source/RESULT.csv'))
+       for line in csv_reader:
+           patch_name = line[0]
+           exist_result.add(patch_name)
 
    listdirs = os.listdir('./patches')
    currentpath=os.path.dirname(os.path.realpath(__file__))
