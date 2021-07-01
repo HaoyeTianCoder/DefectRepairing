@@ -4,7 +4,7 @@ import multiprocessing
 import csv
 
 cores = multiprocessing.cpu_count()
-print "cores: ", cores
+print ("cores: ", cores)
 pool = multiprocessing.Pool(processes=cores)
 
 def run_cmd(cmd):
