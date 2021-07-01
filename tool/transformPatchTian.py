@@ -21,28 +21,31 @@ def travFolder(dir):
                print (projectId)
                print (bugId)
                patchcode=''
-               with open(dir+'/'+f, 'r') as rfile:
-                   lines = rfile.read().split('\n')
-                #    print lines
-                   for line in lines:
-                       if "---" in line:
-                           oldfirstline=line.split("---")[1].strip()
-                           firstline=projectId+bugId+'b'+oldfirstline
-                           print (firstline)
-                       elif "+++" in line:
-                           oldsecondline=line.split("+++")[1].strip()
-                           secondline=projectId+bugId+'b_'+patchName+oldsecondline
-                           print (secondline)
-                       else:
-                           patchcode+=line+'\n'
-                           print (patchcode)
-               # if not os.path.exists('./patches/'+dir[2:]):
-               #     os.makedirs('./patches/'+dir[2:])
-               with open('./patches/'+patchName,'a') as wfile:
-                   wfile.write("diff -w -r -u "+firstline+" "+secondline+'\n')
-                   wfile.write("--- "+firstline+'\n')
-                   wfile.write("+++ "+secondline+'\n')
-                   wfile.write(patchcode)
+               try:
+                   with open(dir+'/'+f, 'r') as rfile:
+                       lines = rfile.read().split('\n')
+                    #    print lines
+                       for line in lines:
+                           if "---" in line:
+                               oldfirstline=line.split("---")[1].strip()
+                               firstline=projectId+bugId+'b'+oldfirstline
+                               print (firstline)
+                           elif "+++" in line:
+                               oldsecondline=line.split("+++")[1].strip()
+                               secondline=projectId+bugId+'b_'+patchName+oldsecondline
+                               print (secondline)
+                           else:
+                               patchcode+=line+'\n'
+                               print (patchcode)
+                   # if not os.path.exists('./patches/'+dir[2:]):
+                   #     os.makedirs('./patches/'+dir[2:])
+                   with open('./patches/'+patchName,'a') as wfile:
+                       wfile.write("diff -w -r -u "+firstline+" "+secondline+'\n')
+                       wfile.write("--- "+firstline+'\n')
+                       wfile.write("+++ "+secondline+'\n')
+                       wfile.write(patchcode)
+               except Exception as e:
+                   print('parse error: {}'.format(e))
                                   
        else:
            if 'tmp.patch' not in f:
@@ -53,5 +56,6 @@ def travFolder(dir):
 if __name__ == '__main__':
     os.system('mkdir ./patches')
     # folderdir='./3sFix'
-    folderdir='./PatchStanTOSEM' + sys.argv[1]
+    # folderdir='./PatchStanTOSEM' + sys.argv[1]
+    folderdir='./PatchStanTOSEM'
     travFolder(folderdir)
