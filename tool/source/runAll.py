@@ -22,7 +22,7 @@ if __name__ == '__main__':
            patch_name = line[0]
            exist_result.add(patch_name)
 
-    listdirs = os.listdir('./patches')
+    listdirs = os.listdir('../patches')
     currentpath=os.path.dirname(os.path.realpath(__file__))
     r = re.compile("([a-zA-Z]+)([0-9]+)")
     cmd_list = []
