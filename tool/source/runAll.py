@@ -11,7 +11,10 @@ pool = multiprocessing.Pool(processes=cores)
 
 def runMain(para_list):
     project, bug, f = para_list[0], para_list[1], para_list[2]
-    run(project, bug, f)
+    try:
+        run(project, bug, f)
+    except Exception as e:
+        print(e)
 
 
 if __name__ == '__main__':
