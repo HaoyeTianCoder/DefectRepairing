@@ -12,14 +12,14 @@ def travFolder(dir):
            if fnmatch.fnmatch(f, pattern):
                label = dir.split('/')[3]
                patchName=os.path.splitext(f)[0] + '_' + label
-               print patchName
+               print(patchName)
                arraynames=os.path.splitext(f)[0].split("-")   
                #arraynames ['patch1', 'Chart', '1', 'CapGen']
                patchNo=arraynames[0] 
                projectId=arraynames[1] 
                bugId=arraynames[2].split('_')[0]
-               print projectId
-               print bugId
+               print (projectId)
+               print (bugId)
                patchcode=''
                with open(dir+'/'+f, 'r') as rfile:
                    lines = rfile.read().split('\n')
@@ -28,14 +28,14 @@ def travFolder(dir):
                        if "---" in line:
                            oldfirstline=line.split("---")[1].strip()
                            firstline=projectId+bugId+'b'+oldfirstline
-                           print firstline
+                           print (firstline)
                        elif "+++" in line:
                            oldsecondline=line.split("+++")[1].strip()
                            secondline=projectId+bugId+'b_'+patchName+oldsecondline
-                           print secondline
+                           print (secondline)
                        else:
                            patchcode+=line+'\n'
-                           print patchcode
+                           print (patchcode)
                # if not os.path.exists('./patches/'+dir[2:]):
                #     os.makedirs('./patches/'+dir[2:])
                with open('./patches/'+patchName,'a') as wfile:
@@ -52,6 +52,6 @@ def travFolder(dir):
 
 if __name__ == '__main__':
     os.system('mkdir ./patches')
-    # folderdir='./3sfix/'
+    # folderdir='./3sFix'
     folderdir='./PatchStanTOSEM/' + sys.argv[1]
     travFolder(folderdir)
