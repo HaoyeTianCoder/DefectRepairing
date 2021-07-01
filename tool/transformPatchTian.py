@@ -56,6 +56,6 @@ def travFolder(dir):
 if __name__ == '__main__':
     os.system('mkdir ./patches')
     # folderdir='./3sFix'
-    # folderdir='./PatchStanTOSEM' + sys.argv[1]
-    folderdir='./PatchStanTOSEM'
+    folderdir='./PatchStanTOSEM' + sys.argv[1]
+    # folderdir='./PatchStanTOSEM'
     travFolder(folderdir)
