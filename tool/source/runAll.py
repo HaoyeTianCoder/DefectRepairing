@@ -13,17 +13,32 @@ pool = multiprocessing.Pool(processes=cores)
 
 def handler(signum, frame):
    # print("time out!")
-   raise Exception("time out!")
+   raise Exception("TimeOut")
 
 def runMain(para_list):
     project, bug, f = para_list[0], para_list[1], para_list[2]
+    info = ''
+
+    start = time.time()
     try:
         signal.signal(signal.SIGALRM, handler)
         signal.alarm(3600)
+
         run(project, bug, f)
         signal.alarm(0)
     except Exception as e:
+        info = e
         print(e)
+    end = time.time()
+
+    if info != '':
+        during = info
+    else:
+        during = str(end - start)
+    with open('./time.csv', 'a') as timefile:
+        filewriter = csv.writer(timefile, delimiter=',',
+                                quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        filewriter.writerow([f, during])
 
 
 if __name__ == '__main__':
