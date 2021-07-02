@@ -19,17 +19,16 @@ def runMain(para_list):
     project, bug, f = para_list[0], para_list[1], para_list[2]
     info = ''
 
+    signal.signal(signal.SIGALRM, handler)
+    signal.alarm(3600)
     start = time.time()
     try:
-        signal.signal(signal.SIGALRM, handler)
-        signal.alarm(3600)
-
         run(project, bug, f)
-        signal.alarm(0)
     except Exception as e:
         info = e
         print(e)
     end = time.time()
+    signal.alarm(0)
 
     if info != '':
         during = info
