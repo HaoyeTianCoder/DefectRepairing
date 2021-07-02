@@ -12,14 +12,14 @@ pool = multiprocessing.Pool(processes=cores)
 
 
 def handler(signum, frame):
-   print("time out!")
-   raise Exception("end of time")
+   # print("time out!")
+   raise Exception("time out!")
 
 def runMain(para_list):
     project, bug, f = para_list[0], para_list[1], para_list[2]
     try:
         signal.signal(signal.SIGALRM, handler)
-        signal.alarm(1)
+        signal.alarm(3600)
         run(project, bug, f)
         signal.alarm(0)
     except Exception as e:
