@@ -67,7 +67,6 @@ def classify(patch_id):
     return res
 
 def run(project,bugid,patch_no):
-    start = time.time()
 
     checkout(project,bugid,patch_no)
     gen_test_randoop(project,bugid)
@@ -86,13 +85,7 @@ def run(project,bugid,patch_no):
     os.system('rm -rf '+project+bugid+'b')
     os.system('rm -rf '+project+bugid+'b_'+patch_no)
 
-    end = time.time()
-    during = str(end - start)
 
-    with open('./time.csv', 'a') as timefile:
-        filewriter = csv.writer(timefile, delimiter=',',
-                                quotechar='|', quoting=csv.QUOTE_MINIMAL)
-        filewriter.writerow([patch_no, during])
 import sys,csv
 if __name__ == '__main__':
     run(sys.argv[1],sys.argv[2],sys.argv[3])
