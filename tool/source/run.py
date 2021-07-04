@@ -12,8 +12,9 @@ import signal
 def kill_proc_tree(pid, including_parent=True):
     parent = psutil.Process(pid)
     children = parent.children(recursive=True)
+    print(children)
     for child in children:
-        child.kill()
+        child.kill(9)
     gone, still_alive = psutil.wait_procs(children, timeout=5)
     if including_parent:
         parent.kill()
@@ -70,8 +71,8 @@ def trace(project,bugid,patch_no):
         me = os.getpid()
         print('root pid', me)
         # kill subprocess java
-        # kill_proc_tree(me)
-        os.system('kill -- -'+str(me))
+        kill_proc_tree(me)
+        # os.system('kill -- -'+str(me))
         raise e
     signal.alarm(0)
 
