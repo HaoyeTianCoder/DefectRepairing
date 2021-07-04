@@ -6,6 +6,23 @@ import pylib.get_test_coverage
 import pylib.coverage
 import pylib.tracer
 import time
+import psutil, os
+import signal
+
+def kill_proc_tree(pid, including_parent=True):
+    parent = psutil.Process(pid)
+    children = parent.children(recursive=True)
+    for child in children:
+        child.kill()
+    gone, still_alive = psutil.wait_procs(children, timeout=5)
+    if including_parent:
+        parent.kill()
+        parent.wait(5)
+
+def handler(signum, frame):
+   # print("time out!")
+   raise Exception("TraceTimeOut")
+
 def checkout(project,bugid,patch_no):
     os.system('defects4j checkout -p '+project+' -v '+bugid+'b -w '+project+bugid+'b')
     if os.path.exists('./'+project+bugid+'b_'+patch_no):
@@ -20,6 +37,7 @@ def gen_test_randoop(project,bug_id):
         os.system('run_randoop.pl -p '+project+' -v '+str(bug_id)+'b -n '+str(bug_id)+' -o ../test_gen_randoop -b 180')
 
 def trace(project,bugid,patch_no):
+
     if not os.path.exists('../randoop_cover'):
         os.system('mkdir ../randoop_cover')
     if not os.path.exists('../test_coverage'):
@@ -53,7 +71,7 @@ def parse_trace(project,bugid,patch_no):
     print('parsing traces.....................')
     if os.path.exists(os.path.join(patch_no,'LCS_array')):
         return
-    val=os.system('timeout 3600 make parse ARGS="'+project+' '+bugid+' '+patch_no+' '+os.path.join(os.getcwd(),'../traces')+' '+os.path.join(os.getcwd(),'../patches')+' '+os.path.join(os.getcwd(),'pylib/projects/')+'" 2>/dev/null >/dev/null')
+    val=os.system('timeout 1800 make parse ARGS="'+project+' '+bugid+' '+patch_no+' '+os.path.join(os.getcwd(),'../traces')+' '+os.path.join(os.getcwd(),'../patches')+' '+os.path.join(os.getcwd(),'pylib/projects/')+'" 2>/dev/null >/dev/null')
     if val!=0:
         print('error')
     return
@@ -72,7 +90,17 @@ def run(project,bugid,patch_no):
     checkout(project,bugid,patch_no)
     gen_test_randoop(project,bugid)
 
-    trace(project,bugid,patch_no)
+    signal.signal(signal.SIGALRM, handler)
+    signal.alarm(60)
+    try:
+        trace(project,bugid,patch_no)
+    except Exception as e:
+        print(e)
+        me = os.getpid()
+        # kill subprocess java
+        kill_proc_tree(me)
+    signal.alarm(0)
+
     parse_trace(project,bugid,patch_no)
     res=classify(patch_no)
     print(res)
