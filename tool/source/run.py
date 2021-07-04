@@ -60,8 +60,20 @@ def trace(project,bugid,patch_no):
         return 1
     else:
         tests=set(list(pylib.coverage.get_trgr_tests(project,bugid))+list(pylib.coverage.process_cover_trace('../test_coverage/'+project+bugid+'b_'+patch_no+".txt")))
-    
-    pylib.tracer.run(project,bugid,patch_no,tests,randoop_tests)
+
+    signal.signal(signal.SIGALRM, handler)
+    signal.alarm(60)
+    try:
+        pylib.tracer.run(project,bugid,patch_no,tests,randoop_tests)
+    except Exception as e:
+        print(e)
+        me = os.getpid()
+        print('root pid', me)
+        # kill subprocess java
+        kill_proc_tree(me)
+        raise e
+    signal.alarm(0)
+
     return 0
 
 def extract_trace(project,bugid,patch_no):
@@ -90,16 +102,9 @@ def run(project,bugid,patch_no):
     checkout(project,bugid,patch_no)
     gen_test_randoop(project,bugid)
 
-    signal.signal(signal.SIGALRM, handler)
-    signal.alarm(60)
-    try:
-        trace(project,bugid,patch_no)
-    except Exception as e:
-        print(e)
-        me = os.getpid()
-        # kill subprocess java
-        kill_proc_tree(me)
-    signal.alarm(0)
+
+    trace(project,bugid,patch_no)
+
 
     parse_trace(project,bugid,patch_no)
     res=classify(patch_no)
