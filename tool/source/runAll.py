@@ -29,6 +29,9 @@ def runMain(para_list):
         print(e)
         res = 'Error'
 
+    end = time.time()
+    signal.alarm(0)
+
     with open('RESULT.csv', 'a') as csvfile:
         filewriter = csv.writer(csvfile, delimiter=',',
                                 quotechar='|', quoting=csv.QUOTE_MINIMAL)
@@ -39,8 +42,6 @@ def runMain(para_list):
     os.system('rm -rf '+project+bugid+'b')
     os.system('rm -rf '+project+bugid+'b_'+patch_no)
 
-    end = time.time()
-    signal.alarm(0)
 
     if info != '':
         duration = info
