@@ -71,7 +71,7 @@ def trace(project,bugid,patch_no):
         print('root pid', me)
         # kill subprocess java
         # kill_proc_tree(me)
-        os.system('kill -9 -'+str(me))
+        os.system('kill -- -'+str(me))
         raise e
     signal.alarm(0)
 
