@@ -68,22 +68,17 @@ def classify(patch_id):
 
 def run(project,bugid,patch_no):
 
+
     checkout(project,bugid,patch_no)
     gen_test_randoop(project,bugid)
-    
+
     trace(project,bugid,patch_no)
     parse_trace(project,bugid,patch_no)
     res=classify(patch_no)
     print(res)
-    with open('RESULT.csv', 'a') as csvfile:  
-        filewriter = csv.writer(csvfile, delimiter=',',
-                                quotechar='|', quoting=csv.QUOTE_MINIMAL)
-        filewriter.writerow([patch_no,project,bugid,res])
-    os.system('rm -rf '+project+bugid+'b')
-    os.system('rm -rf '+project+bugid+'b_'+patch_no)
+    return res
 
-    os.system('rm -rf '+project+bugid+'b')
-    os.system('rm -rf '+project+bugid+'b_'+patch_no)
+
 
 
 import sys,csv

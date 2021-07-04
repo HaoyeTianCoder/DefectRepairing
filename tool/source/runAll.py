@@ -16,28 +16,40 @@ def handler(signum, frame):
    raise Exception("TimeOut")
 
 def runMain(para_list):
-    project, bug, f = para_list[0], para_list[1], para_list[2]
+    project, bugid, patch_no = para_list[0], para_list[1], para_list[2]
     info = ''
 
     signal.signal(signal.SIGALRM, handler)
     signal.alarm(3600)
     start = time.time()
     try:
-        run(project, bug, f)
+        res = run(project, bugid, patch_no)
     except Exception as e:
         info = e
         print(e)
+        res = 'Error'
+
+    with open('RESULT.csv', 'a') as csvfile:
+        filewriter = csv.writer(csvfile, delimiter=',',
+                                quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        filewriter.writerow([patch_no,project,bugid,res])
+    os.system('rm -rf '+project+bugid+'b')
+    os.system('rm -rf '+project+bugid+'b_'+patch_no)
+
+    os.system('rm -rf '+project+bugid+'b')
+    os.system('rm -rf '+project+bugid+'b_'+patch_no)
+
     end = time.time()
     signal.alarm(0)
 
     if info != '':
-        during = info
+        duration = info
     else:
-        during = str(end - start)
+        duration = str(end - start)
     with open('./time.csv', 'a') as timefile:
         filewriter = csv.writer(timefile, delimiter=',',
                                 quotechar='|', quoting=csv.QUOTE_MINIMAL)
-        filewriter.writerow([f, during])
+        filewriter.writerow([f, duration])
 
 
 if __name__ == '__main__':
