@@ -9,16 +9,20 @@ import time
 import psutil, os
 import signal
 
-def kill_proc_tree(pid, including_parent=True):
+def get_children_process(pid):
     parent = psutil.Process(pid)
     children = parent.children(recursive=True)
-    print(children)
+    return children
+
+def kill_proc_tree(children, including_parent=True):
     for child in children:
         child.kill(9)
     gone, still_alive = psutil.wait_procs(children, timeout=5)
-    if including_parent:
-        parent.kill()
-        parent.wait(5)
+    for child in still_alive:
+        child.kill(9)
+    # if including_parent:
+    #     parent.kill()
+    #     parent.wait(5)
 
 def handler(signum, frame):
    # print("time out!")
@@ -37,7 +41,7 @@ def gen_test_randoop(project,bug_id):
     if not os.path.exists('../test_gen_randoop/'+project+'/randoop/'+str(bug_id)):
         os.system('run_randoop.pl -p '+project+' -v '+str(bug_id)+'b -n '+str(bug_id)+' -o ../test_gen_randoop -b 180')
 
-def trace(project,bugid,patch_no):
+def trace(project,bugid,patch_no, task_list):
 
     if not os.path.exists('../randoop_cover'):
         os.system('mkdir ../randoop_cover')
@@ -62,19 +66,7 @@ def trace(project,bugid,patch_no):
     else:
         tests=set(list(pylib.coverage.get_trgr_tests(project,bugid))+list(pylib.coverage.process_cover_trace('../test_coverage/'+project+bugid+'b_'+patch_no+".txt")))
 
-    signal.signal(signal.SIGALRM, handler)
-    signal.alarm(60)
-    try:
-        pylib.tracer.run(project,bugid,patch_no,tests,randoop_tests)
-    except Exception as e:
-        print(e)
-        me = os.getpid()
-        print('root pid', me)
-        # kill subprocess java
-        kill_proc_tree(me)
-        # os.system('kill -- -'+str(me))
-        raise e
-    signal.alarm(0)
+    pylib.tracer.run(project,bugid,patch_no,tests,randoop_tests, task_list)
 
     return 0
 
@@ -104,9 +96,21 @@ def run(project,bugid,patch_no):
     checkout(project,bugid,patch_no)
     gen_test_randoop(project,bugid)
 
-
-    trace(project,bugid,patch_no)
-
+    signal.signal(signal.SIGALRM, handler)
+    signal.alarm(60)
+    me = os.getpid()
+    print('root pid', me)
+    task_list = [me]
+    task_list += get_children_process(me)
+    try:
+        trace(project,bugid,patch_no, task_list)
+    except Exception as e:
+        print(e)
+        # kill subprocess java
+        kill_proc_tree(task_list)
+        # os.system('kill -- -'+str(me))
+        raise e
+    signal.alarm(0)
 
     parse_trace(project,bugid,patch_no)
     res=classify(patch_no)
