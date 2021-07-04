@@ -1,9 +1,16 @@
 import time
+import sys
+sys.path.append("..")
 import os
 from unidiff import PatchSet
-from ..run import get_children_process
-import subprocess
+# from ..run import get_children_process
+import subprocess, psutil
 btrace_home=os.path.abspath("./lib/btrace")
+
+def get_children_process(pid):
+    parent = psutil.Process(pid)
+    children = parent.children(recursive=True)
+    return children
 
 def extract_trace(src,tgt,start,end):
     s=''
