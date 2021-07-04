@@ -12,6 +12,13 @@ def get_children_process(pid):
     children = parent.children(recursive=True)
     return children
 
+def kill_proc_tree(children, including_parent=True):
+    for child in children:
+        child.kill(9)
+    gone, still_alive = psutil.wait_procs(children, timeout=5)
+    for child in still_alive:
+        child.kill(9)
+
 def extract_trace(src,tgt,start,end):
     s=''
     f=open(src)
@@ -86,7 +93,7 @@ def run(project,bugid,patch_no,tests, randoop_tests=[], task_list=[], tmp_tracef
         # os.system('timeout 90 defects4j test -n -t '+test+' -w '+w_buggy+jvmargs)
         p = subprocess.Popen('timeout 90 defects4j test -n -t '+test+' -w '+w_buggy+jvmargs, shell=True)
         p.wait(90)
-        task_list += get_children_process(p.pid)
+        kill_proc_tree(get_children_process(p.pid))
         if os.path.exists(tmp_tracefile):
             extract_trace(tmp_tracefile,os.path.join(dir_path,'buggy_e','__'.join(test.split('::'))),start_line,end_line)
             os.system('mv '+tmp_tracefile+' '+os.path.join(dir_path,'buggy','__'.join(test.split('::'))))
@@ -95,7 +102,7 @@ def run(project,bugid,patch_no,tests, randoop_tests=[], task_list=[], tmp_tracef
         os.system('timeout 90 defects4j test -n -t '+test+' -w  '+w_patched+jvmargs)
         p = subprocess.Popen('timeout 90 defects4j test -n -t '+test+' -w  '+w_patched+jvmargs, shell=True)
         p.wait(90)
-        task_list += get_children_process(p.pid)
+        kill_proc_tree(get_children_process(p.pid))
         if os.path.exists(tmp_tracefile):
             extract_trace(tmp_tracefile,os.path.join(dir_path,'patched_e','__'.join(test.split('::'))),start_line,end_line)
             os.system('mv '+tmp_tracefile+' '+os.path.join(dir_path,'patched','__'.join(test.split('::'))))
@@ -108,12 +115,12 @@ def run(project,bugid,patch_no,tests, randoop_tests=[], task_list=[], tmp_tracef
             # os.system('timeout 90 defects4j test -s '+testfile+' -t '+Test_Case.strip()+' -w '+w_buggy+jvmargs)
             p = subprocess.Popen('timeout 90 defects4j test -s '+testfile+' -t '+Test_Case.strip()+' -w '+w_buggy+jvmargs, shell=True)
             p.wait(90)
-            task_list += get_children_process(p.pid)
+            kill_proc_tree(get_children_process(p.pid))
         else:
             # os.system('timeout 90 defects4j test -n -s '+testfile+' -t '+Test_Case.strip()+' -w '+w_buggy+jvmargs)
             p = subprocess.Popen('timeout 90 defects4j test -n -s '+testfile+' -t '+Test_Case.strip()+' -w '+w_buggy+jvmargs, shell=True)
             p.wait(90)
-            task_list += get_children_process(p.pid)
+            kill_proc_tree(get_children_process(p.pid))
         if os.path.exists(tmp_tracefile):
             extract_trace(tmp_tracefile,os.path.join(dir_path,'buggy_e','__'.join(test.split('::'))),start_line,end_line)
             os.system('mv '+tmp_tracefile+' '+os.path.join(dir_path,'buggy','__'.join(test.split('::'))))
@@ -121,12 +128,12 @@ def run(project,bugid,patch_no,tests, randoop_tests=[], task_list=[], tmp_tracef
             # os.system('timeout 90 defects4j test -s '+testfile+' -t '+Test_Case.strip()+' -w '+w_patched+jvmargs)
             p = subprocess.Popen('timeout 90 defects4j test -s '+testfile+' -t '+Test_Case.strip()+' -w '+w_patched+jvmargs, shell=True)
             p.wait(90)
-            task_list += get_children_process(p.pid)
+            kill_proc_tree(get_children_process(p.pid))
         else:
             # os.system('timeout 90 defects4j test -n -s '+testfile+' -t '+Test_Case.strip()+' -w '+w_patched+jvmargs)
             p = subprocess.Popen('timeout 90 defects4j test -n -s '+testfile+' -t '+Test_Case.strip()+' -w '+w_patched+jvmargs, shell=True)
             p.wait(90)
-            task_list += get_children_process(p.pid)
+            kill_proc_tree(get_children_process(p.pid))
         if os.path.exists(tmp_tracefile):
             extract_trace(tmp_tracefile,os.path.join(dir_path,'patched_e','__'.join(test.split('::'))),start_line,end_line)
             os.system('mv '+tmp_tracefile+' '+os.path.join(dir_path,'patched','__'.join(test.split('::'))))
