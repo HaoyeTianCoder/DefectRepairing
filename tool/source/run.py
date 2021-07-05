@@ -96,11 +96,11 @@ def run(project,bugid,patch_no):
     checkout(project,bugid,patch_no)
     gen_test_randoop(project,bugid)
 
-    signal.signal(signal.SIGALRM, handler)
-    signal.alarm(60)
     pgid_list = []
     me = os.getpid()
     print('root pid', me)
+    signal.signal(signal.SIGALRM, handler)
+    signal.alarm(60)
     try:
         trace(project,bugid,patch_no, pgid_list)
     except Exception as e:
