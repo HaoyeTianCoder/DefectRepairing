@@ -52,6 +52,9 @@ def runMain(para_list):
                                 quotechar='|', quoting=csv.QUOTE_MINIMAL)
         filewriter.writerow([f, duration])
 
+    cmd = "ps j -A|grep " + patch_no + "|awk '{print $2}'|xargs kill -9"
+    print(cmd)
+    os.system(cmd)
 
 if __name__ == '__main__':
     exist_result = set()
