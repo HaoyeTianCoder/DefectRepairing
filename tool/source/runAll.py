@@ -50,7 +50,7 @@ def runMain(para_list):
     with open('./time.csv', 'a') as timefile:
         filewriter = csv.writer(timefile, delimiter=',',
                                 quotechar='|', quoting=csv.QUOTE_MINIMAL)
-        filewriter.writerow([f, duration])
+        filewriter.writerow([patch_no, project,bugid, duration])
 
     cmd = "ps j -A|grep " + patch_no + "|awk '{print $2}'|xargs kill -9"
     print(cmd)
