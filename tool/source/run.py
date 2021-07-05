@@ -106,7 +106,7 @@ def run(project,bugid,patch_no):
     except Exception as e:
         print(e)
         # kill subprocess java
-        kill_proc_tree([get_children_process(me)])
+        kill_proc_tree(get_children_process(me))
         print(pgid_list)
         for pgid in pgid_list:
             os.system('kill -9 -'+str(pgid))
