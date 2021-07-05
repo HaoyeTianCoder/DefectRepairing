@@ -104,7 +104,8 @@ def run(project,bugid,patch_no):
         print(e)
         # kill subprocess java
         # kill_proc_tree(get_children_process(os.getpid()))
-        os.system('ps j -A|grep "{}"|awk "{print $2}"|xargs kill -9'.format(patch_no))
+        # os.system('ps j -A|grep "{}"|awk "{print $2}"|xargs kill -9'.format(patch_no))
+        os.system('ps j -A|grep '+ patch_no +'|awk "{print $2}"|xargs kill -9')
         raise e
     signal.alarm(0)
 
