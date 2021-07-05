@@ -98,17 +98,18 @@ def run(project,bugid,patch_no):
 
     signal.signal(signal.SIGALRM, handler)
     signal.alarm(60)
+    pgid_list = []
     me = os.getpid()
     print('root pid', me)
-    task_list = [me]
-    task_list += get_children_process(me)
     try:
-        trace(project,bugid,patch_no, task_list)
+        trace(project,bugid,patch_no, pgid_list)
     except Exception as e:
         print(e)
         # kill subprocess java
-        kill_proc_tree(task_list)
-        # os.system('kill -- -'+str(me))
+        kill_proc_tree([me])
+        print(pgid_list)
+        for pgid in pgid_list:
+            os.system('kill -9 -'+str(pgid))
         raise e
     signal.alarm(0)
 

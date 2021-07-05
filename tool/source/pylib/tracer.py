@@ -92,8 +92,7 @@ def run(project,bugid,patch_no,tests, randoop_tests=[], task_list=[], tmp_tracef
         
         # os.system('timeout 90 defects4j test -n -t '+test+' -w '+w_buggy+jvmargs)
         p = subprocess.Popen('timeout 90 defects4j test -n -t '+test+' -w '+w_buggy+jvmargs, shell=True)
-        p.wait(90)
-        kill_proc_tree(get_children_process(p.pid))
+        task_list += os.getpgid(p.pid)
         if os.path.exists(tmp_tracefile):
             extract_trace(tmp_tracefile,os.path.join(dir_path,'buggy_e','__'.join(test.split('::'))),start_line,end_line)
             os.system('mv '+tmp_tracefile+' '+os.path.join(dir_path,'buggy','__'.join(test.split('::'))))
@@ -101,11 +100,11 @@ def run(project,bugid,patch_no,tests, randoop_tests=[], task_list=[], tmp_tracef
 
         os.system('timeout 90 defects4j test -n -t '+test+' -w  '+w_patched+jvmargs)
         p = subprocess.Popen('timeout 90 defects4j test -n -t '+test+' -w  '+w_patched+jvmargs, shell=True)
-        p.wait(90)
-        kill_proc_tree(get_children_process(p.pid))
+        task_list += os.getpgid(p.pid)
         if os.path.exists(tmp_tracefile):
             extract_trace(tmp_tracefile,os.path.join(dir_path,'patched_e','__'.join(test.split('::'))),start_line,end_line)
             os.system('mv '+tmp_tracefile+' '+os.path.join(dir_path,'patched','__'.join(test.split('::'))))
+        print(task_list)
 
     cmpl_flag=True
     testfile='../test_gen_randoop/'+project+'/randoop/'+bugid+'/'+project+'-'+bugid+'b-randoop.'+bugid+'.tar.bz2'
@@ -114,28 +113,25 @@ def run(project,bugid,patch_no,tests, randoop_tests=[], task_list=[], tmp_tracef
         if(cmpl_flag):
             # os.system('timeout 90 defects4j test -s '+testfile+' -t '+Test_Case.strip()+' -w '+w_buggy+jvmargs)
             p = subprocess.Popen('timeout 90 defects4j test -s '+testfile+' -t '+Test_Case.strip()+' -w '+w_buggy+jvmargs, shell=True)
-            p.wait(90)
-            kill_proc_tree(get_children_process(p.pid))
+            task_list += os.getpgid(p.pid)
         else:
             # os.system('timeout 90 defects4j test -n -s '+testfile+' -t '+Test_Case.strip()+' -w '+w_buggy+jvmargs)
             p = subprocess.Popen('timeout 90 defects4j test -n -s '+testfile+' -t '+Test_Case.strip()+' -w '+w_buggy+jvmargs, shell=True)
-            p.wait(90)
-            kill_proc_tree(get_children_process(p.pid))
+            task_list += os.getpgid(p.pid)
         if os.path.exists(tmp_tracefile):
             extract_trace(tmp_tracefile,os.path.join(dir_path,'buggy_e','__'.join(test.split('::'))),start_line,end_line)
             os.system('mv '+tmp_tracefile+' '+os.path.join(dir_path,'buggy','__'.join(test.split('::'))))
         if(cmpl_flag):
             # os.system('timeout 90 defects4j test -s '+testfile+' -t '+Test_Case.strip()+' -w '+w_patched+jvmargs)
             p = subprocess.Popen('timeout 90 defects4j test -s '+testfile+' -t '+Test_Case.strip()+' -w '+w_patched+jvmargs, shell=True)
-            p.wait(90)
-            kill_proc_tree(get_children_process(p.pid))
+            task_list += os.getpgid(p.pid)
         else:
             # os.system('timeout 90 defects4j test -n -s '+testfile+' -t '+Test_Case.strip()+' -w '+w_patched+jvmargs)
             p = subprocess.Popen('timeout 90 defects4j test -n -s '+testfile+' -t '+Test_Case.strip()+' -w '+w_patched+jvmargs, shell=True)
-            p.wait(90)
-            kill_proc_tree(get_children_process(p.pid))
+            task_list += os.getpgid(p.pid)
         if os.path.exists(tmp_tracefile):
             extract_trace(tmp_tracefile,os.path.join(dir_path,'patched_e','__'.join(test.split('::'))),start_line,end_line)
             os.system('mv '+tmp_tracefile+' '+os.path.join(dir_path,'patched','__'.join(test.split('::'))))
         cmpl_flag=False
+        print(task_list)
 
