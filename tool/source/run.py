@@ -41,7 +41,7 @@ def gen_test_randoop(project,bug_id):
     if not os.path.exists('../test_gen_randoop/'+project+'/randoop/'+str(bug_id)):
         os.system('run_randoop.pl -p '+project+' -v '+str(bug_id)+'b -n '+str(bug_id)+' -o ../test_gen_randoop -b 180')
 
-def trace(project,bugid,patch_no, task_list):
+def trace(project,bugid,patch_no):
 
     if not os.path.exists('../randoop_cover'):
         os.system('mkdir ../randoop_cover')
@@ -66,7 +66,7 @@ def trace(project,bugid,patch_no, task_list):
     else:
         tests=set(list(pylib.coverage.get_trgr_tests(project,bugid))+list(pylib.coverage.process_cover_trace('../test_coverage/'+project+bugid+'b_'+patch_no+".txt")))
 
-    pylib.tracer.run(project,bugid,patch_no,tests,randoop_tests, task_list)
+    pylib.tracer.run(project,bugid,patch_no,tests,randoop_tests)
 
     return 0
 
@@ -96,20 +96,15 @@ def run(project,bugid,patch_no):
     checkout(project,bugid,patch_no)
     gen_test_randoop(project,bugid)
 
-    pgid_list = []
-    me = os.getpid()
-    print('root pid', me)
     signal.signal(signal.SIGALRM, handler)
     signal.alarm(60)
     try:
-        trace(project,bugid,patch_no, pgid_list)
+        trace(project,bugid,patch_no)
     except Exception as e:
         print(e)
         # kill subprocess java
-        kill_proc_tree(get_children_process(me))
-        print(pgid_list)
-        for pgid in pgid_list:
-            os.system('kill -9 -'+str(pgid))
+        # kill_proc_tree(get_children_process(os.getpid()))
+        os.system('ps j -A|grep "{}"|awk "{print $2}"|xargs kill -9'.format(patch_no))
         raise e
     signal.alarm(0)
 
