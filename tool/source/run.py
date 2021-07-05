@@ -16,10 +16,10 @@ def get_children_process(pid):
 
 def kill_proc_tree(children, including_parent=True):
     for child in children:
-        child.kill(9)
+        child.kill()
     gone, still_alive = psutil.wait_procs(children, timeout=5)
     for child in still_alive:
-        child.kill(9)
+        child.kill()
     # if including_parent:
     #     parent.kill()
     #     parent.wait(5)
