@@ -17,7 +17,7 @@ def handler(signum, frame):
 
 def runMain(para_list):
     project, bugid, patch_no = para_list[0], para_list[1], para_list[2]
-    info = ''
+    res, info = 'None', 'None'
 
     signal.signal(signal.SIGALRM, handler)
     signal.alarm(3600)
@@ -31,26 +31,22 @@ def runMain(para_list):
 
     end = time.time()
     signal.alarm(0)
+    duration = str(end - start)
 
     with open('RESULT.csv', 'a') as csvfile:
         filewriter = csv.writer(csvfile, delimiter=',',
                                 quotechar='|', quoting=csv.QUOTE_MINIMAL)
-        filewriter.writerow([patch_no,project,bugid,res])
+        filewriter.writerow([patch_no,project,bugid,res,duration])
     os.system('rm -rf '+project+bugid+'b')
     os.system('rm -rf '+project+bugid+'b_'+patch_no)
 
     os.system('rm -rf '+project+bugid+'b')
     os.system('rm -rf '+project+bugid+'b_'+patch_no)
 
-
-    if info != '':
-        duration = info
-    else:
-        duration = str(end - start)
-    with open('./time.csv', 'a') as timefile:
+    with open('./error_log.csv', 'a') as timefile:
         filewriter = csv.writer(timefile, delimiter=',',
                                 quotechar='|', quoting=csv.QUOTE_MINIMAL)
-        filewriter.writerow([patch_no, project,bugid, duration])
+        filewriter.writerow([patch_no, project,bugid, info])
 
     cmd = "ps j -A|grep " + patch_no + "|awk '{print $2}'|xargs kill -9"
     print(cmd)
