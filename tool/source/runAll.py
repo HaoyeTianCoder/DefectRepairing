@@ -67,10 +67,10 @@ if __name__ == '__main__':
     for f in listdirs:
         pattern = 'patch*rrect'
         if fnmatch.fnmatch(f, pattern):
-           print(f)
            if f in exist_result:
                print("{}'s result exists".format(f))
                continue
+           print(f)
            with open(currentpath+'/../patches/'+f) as file:
                arraynames=f.split("-")
                project= arraynames[1]

@@ -97,7 +97,7 @@ def run(project,bugid,patch_no):
     gen_test_randoop(project,bugid)
 
     signal.signal(signal.SIGALRM, handler)
-    signal.alarm(3000)
+    signal.alarm(3600)
     try:
         trace(project,bugid,patch_no)
     except Exception as e:
