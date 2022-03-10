@@ -17,7 +17,7 @@ def travFolder(dir):
                #arraynames ['patch1', 'Chart', '1', 'CapGen']
                patchNo=arraynames[0]
                projectId=arraynames[1]
-               # projectId=projectId[0].upper() + projectId[1:]
+               projectId=projectId[0].upper() + projectId[1:]
                bugId=arraynames[2].split('_')[0]
                patchName='-'.join([patchNo, projectId, bugId]) + '_' + tool + '_' +benchmark + '_' + label
                print(patchName)
@@ -61,5 +61,5 @@ if __name__ == '__main__':
     os.system('mkdir ./patches')
     # folderdir='./3sFix'
     # folderdir='./PatchStanTOSEM' + sys.argv[1]
-    folderdir='./ISSTA2022withTextUnique_Merged'
+    folderdir='./PatchStand2_Merged'
     travFolder(folderdir)
