@@ -22,8 +22,8 @@ def travFolder(dir):
                patchName='-'.join([patchNo, projectId, bugId]) + '_' + tool + '_' +benchmark + '_' + label
                print(patchName)
 
-               print (projectId)
-               print (bugId)
+               # print (projectId)
+               # print (bugId)
                patchcode=''
                try:
                    with open(dir+'/'+f, 'r') as rfile:
@@ -40,7 +40,7 @@ def travFolder(dir):
                                print (secondline)
                            else:
                                patchcode+=line+'\n'
-                               print (patchcode)
+                               # print (patchcode)
                    # if not os.path.exists('./patches/'+dir[2:]):
                    #     os.makedirs('./patches/'+dir[2:])
                    with open('./patches/'+patchName,'a') as wfile:
