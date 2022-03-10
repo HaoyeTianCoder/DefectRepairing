@@ -10,14 +10,18 @@ def travFolder(dir):
        pattern = 'patch*.patch'
        if os.path.isfile(os.path.join(dir, f)):
            if fnmatch.fnmatch(f, pattern):
-               label = dir.split('/')[3]
-               patchName=os.path.splitext(f)[0] + '_' + label
-               print(patchName)
-               arraynames=os.path.splitext(f)[0].split("-")   
+               label = dir.split('/')[5]
+               benchmark = dir.split('/')[2]
+               tool = dir.split('/')[4]
+               arraynames=os.path.splitext(f)[0].split("-")
                #arraynames ['patch1', 'Chart', '1', 'CapGen']
-               patchNo=arraynames[0] 
-               projectId=arraynames[1] 
+               patchNo=arraynames[0]
+               projectId=arraynames[1]
+               # projectId=projectId[0].upper() + projectId[1:]
                bugId=arraynames[2].split('_')[0]
+               patchName='-'.join([patchNo, projectId, bugId]) + '_' + tool + '_' +benchmark + '_' + label
+               print(patchName)
+
                print (projectId)
                print (bugId)
                patchcode=''
@@ -56,6 +60,6 @@ def travFolder(dir):
 if __name__ == '__main__':
     os.system('mkdir ./patches')
     # folderdir='./3sFix'
-    folderdir='./PatchStanTOSEM' + sys.argv[1]
-    # folderdir='./PatchStanTOSEM'
+    # folderdir='./PatchStanTOSEM' + sys.argv[1]
+    folderdir='./ISSTA2022withTextUnique_Merged'
     travFolder(folderdir)
