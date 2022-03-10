@@ -31,7 +31,7 @@ def runMain(para_list):
 
     end = time.time()
     signal.alarm(0)
-    duration = str(int(end - start))
+    duration = str(float(end - start))
 
     with open('RESULT.csv', 'a') as csvfile:
         filewriter = csv.writer(csvfile, delimiter=',',
