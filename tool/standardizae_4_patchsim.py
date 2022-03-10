@@ -4,8 +4,7 @@ import re
 abpatch = ['AVATAR', 'DynaMoth', 'FixMiner', 'kPAR', 'TBar', 'Developer']
 abLikePatch = ['Cardumen', 'jKali', 'jMutRepair',]
 Kui_patch_path = '/Users/haoye.tian/Documents/University/data/APR-Efficiency-NFL'
-patchsim_patch_path = '/Users/haoye.tian/Library/Containers/com.tencent.xinWeChat/Data/Library' \
-                      '/Application Support/com.tencent.xinWeChat/2.0b4.0.9/ee436899d181321caa2a2b54b9947702/Message/MessageTemp/8ab4e803e2aec02f03b28690d2dcd401/File/patches'
+patchsim_patch_path = '/Users/haoye.tian/Documents/University/data/patchsim_patches'
 
 def parse_abpatch(path, tool):
     new_path = os.path.join(path, tool)
@@ -36,7 +35,7 @@ def find_source_path(path, tool):
                 print (file)
                 project = file.split('-')[1]
                 id = file.split('-')[2].split('_')[0]
-                label = root.split('/')[-6]
+                label = root.split('/')[-4]
                 if label == 'Correct':
                     folder_target = project+'-'+id+'_C'
                 elif label == 'Incorrect':
@@ -114,6 +113,7 @@ def parse_3s_Gen_ConFix_KaliA(path, tool):
         for file in files:
             if fnmatch.fnmatch(file, pattern):
                 project = file.split('-')[1]
+                project = project[0].upper() + project[1:]
                 id = file.split('-')[2].split('_')[0]
                 print (file)
                 new_line = ''
@@ -176,6 +176,7 @@ def parse_kPAR(path, tool):
         for file in files:
             if fnmatch.fnmatch(file, pattern):
                 project = file.split('-')[1]
+                project = project[0].upper() + project[1:]
                 id = file.split('-')[2].split('_')[0]
                 print (file)
                 new_line = ''
@@ -223,7 +224,7 @@ def parse_kPAR(path, tool):
 
 if __name__ == '__main__':
     # fix head indicator(path ---, +++) of patch.
-    path = '/Users/haoye.tian/Documents/tmp'
+    path = '/Users/haoye.tian/Documents/tmp/ISSTA2022withTextUnique_Merged/PatchNaturalness/Defects4J'
     tools = os.listdir(path)
     for tool in tools:
         if tool in abpatch:
